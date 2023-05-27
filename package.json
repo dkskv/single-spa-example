@@ -1,0 +1,22 @@
+{
+  "name": "single-spa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack --config webpack.config.js -p"
+  },
+  "dependencies": {
+    "single-spa": "^5.9.4"
+  },
+  "devDependencies": {
+    "@types/systemjs": "^6.13.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.0.4",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  }
+}
