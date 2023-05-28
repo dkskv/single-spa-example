@@ -1,5 +1,6 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
   mode: "development",
@@ -20,7 +21,25 @@ module.exports = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+    new ModuleFederationPlugin({
+      remotes: {
+        test_react_app: "test_react_app@http://localhost:3000/remoteEntry.js",
+      },
+    }),
+    /* В импортируемом модуле:
+
+        new ModuleFederationPlugin({
+          name: "test_react_app",
+          library: { type: "var", name: "test_react_app" },
+          filename: "remoteEntry.js",
+          exposes: {
+            "./single-spa.config": "./src/single-spa.config.ts",
+          },
+        }),
+    */
+    new CleanWebpackPlugin(),
+  ],
   devtool: "source-map",
   externals: [],
   devServer: {

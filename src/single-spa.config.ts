@@ -1,13 +1,15 @@
-import { LifeCycles, registerApplication, start } from "single-spa";
+import { registerApplication, start } from "single-spa";
 
 registerApplication({
-  name: "@test-react-module",
-  app: () => {
-    // Если вывести module в консоль, то можно увидеть методы(mount, bootstrap и unmount),
-    // т.к. загружаемый модуль скомпилирован с libraryTarget: "system"
-    const module = System.import<LifeCycles>(
-      "http://localhost:3000/static/js/bundle.js"
-    );
+  name: "@test-react-app",
+  async app() {
+    // Импорт удаленного модуля по пути, который прописан в ModuleFederationPlugin.
+    // @ts-ignore
+    const module = await import("test_react_app/single-spa.config");
+
+    // Можно увидеть LifeCycles методы: mount, bootstrap и unmount
+    // console.log(module);
+
     return module;
   },
   activeWhen: ["/"],
